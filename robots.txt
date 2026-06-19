@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://kenangias0fu.github.io/officialhth-com-cn/sitemap.xml
