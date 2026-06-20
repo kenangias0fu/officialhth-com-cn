@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hth.com · 主题知识库</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            background: #f5f7fa;
+            color: #1e2a3a;
+            line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        /* 深色头图 */
+        .hero-dark {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 4rem 1.5rem 3.5rem;
+            text-align: center;
+            border-bottom: 1px solid #2d3a50;
+        }
+        .hero-dark h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.75rem;
+        }
+        .hero-dark h1 span {
+            color: #60a5fa;
+            font-weight: 600;
+        }
+        .hero-dark .sub {
+            font-size: 1.05rem;
+            color: #94a3b8;
+            max-width: 680px;
+            margin: 0 auto 0.5rem;
+        }
+        /* 正文区容器 */
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 4rem;
+            flex: 1;
+            width: 100%;
+        }
+        /* 目录感布局：网格卡片 + 说明区 */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2.5rem 0 3rem;
+        }
+        .card-outline {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 1.8rem 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+            border: 1px solid #e9edf2;
+            transition: box-shadow 0.2s ease;
+        }
+        .card-outline:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        }
+        .card-outline h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .card-outline h3::before {
+            content: "▹";
+            color: #2563eb;
+            font-weight: 400;
+            font-size: 1.3rem;
+        }
+        .card-outline p, .card-outline li {
+            color: #334155;
+            font-size: 0.98rem;
+        }
+        .card-outline ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 0.4rem;
+        }
+        .card-outline ul li {
+            padding: 0.3rem 0 0.3rem 1.2rem;
+            position: relative;
+        }
+        .card-outline ul li::before {
+            content: "•";
+            color: #3b82f6;
+            font-weight: 700;
+            position: absolute;
+            left: 0;
+        }
+        .info-block {
+            background: #f0f4fe;
+            border-left: 4px solid #2563eb;
+            padding: 1.6rem 2rem;
+            border-radius: 0 14px 14px 0;
+            margin: 2rem 0 2.5rem;
+        }
+        .info-block strong {
+            color: #0f172a;
+        }
+        .tip-block {
+            background: #fef9e7;
+            border: 1px solid #fde68a;
+            border-radius: 14px;
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        .tip-block::before {
+            content: "💡";
+            font-size: 1.5rem;
+            line-height: 1;
+            margin-top: 0.1rem;
+        }
+        .tip-block p {
+            color: #5b4636;
+            font-size: 0.98rem;
+        }
+        /* faq 摘要区 */
+        .faq-preview {
+            margin-top: 2rem;
+        }
+        .faq-preview details {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 0.9rem 1.5rem;
+            margin-bottom: 0.8rem;
+            transition: border 0.1s;
+        }
+        .faq-preview details[open] {
+            border-color: #94a3b8;
+        }
+        .faq-preview summary {
+            font-weight: 500;
+            color: #0f172a;
+            cursor: pointer;
+            padding: 0.2rem 0;
+        }
+        .faq-preview summary::marker {
+            color: #2563eb;
+        }
+        .faq-preview .answer {
+            padding: 0.6rem 0 0.2rem;
+            color: #374151;
+            font-size: 0.95rem;
+            border-top: 1px solid #e9edf2;
+            margin-top: 0.3rem;
+        }
+        /* 强调色链接 */
+        a {
+            color: #2563eb;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.15s, color 0.15s;
+        }
+        a:hover {
+            color: #1d4ed8;
+            border-bottom-color: #1d4ed8;
+        }
+        .inline-link {
+            font-weight: 500;
+        }
+        .related-box {
+            background: #eef2f6;
+            border-radius: 14px;
+            padding: 1.6rem 2rem;
+            margin: 2.5rem 0 1rem;
+            border: 1px solid #dce2e9;
+        }
+        .related-box h4 {
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 0.6rem;
+            font-size: 1.05rem;
+        }
+        .related-box .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem 1rem;
+            list-style: none;
+        }
+        .related-box .tag-list li {
+            background: #fff;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            border: 1px solid #cbd5e1;
+            color: #1e293b;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #dce2e9;
+            margin: 1.8rem 0;
+        }
+        /* 响应式 */
+        @media (max-width: 760px) {
+            .hero-dark { padding: 3rem 1.2rem 2.5rem; }
+            .hero-dark h1 { font-size: 1.8rem; }
+            .grid-2col { grid-template-columns: 1fr; gap: 1.4rem; }
+            .container { padding: 1.8rem 1rem 3rem; }
+            .card-outline, .info-block, .tip-block, .related-box { padding: 1.2rem 1.2rem; }
+            .tip-block { flex-direction: column; gap: 0.4rem; }
+        }
+        @media (max-width: 480px) {
+            .hero-dark h1 { font-size: 1.5rem; }
+            .card-outline h3 { font-size: 1.1rem; }
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 1.5rem 1.5rem;
+            color: #64748b;
+            font-size: 0.85rem;
+            border-top: 1px solid #dce2e9;
+            background: #f8fafc;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 深色头图 -->
+    <header class="hero-dark">
+        <h1>主题·<span>知识库</span></h1>
+        <p class="sub">围绕关键词 hth.com 所关联的内容体系，整理背景、应用视角与常见疑问</p>
+    </header>
+
+    <!-- 正文区 -->
+    <main class="container">
+
+        <!-- 说明区：简要介绍关键词背景与知识库定位 -->
+        <div class="info-block">
+            <p><strong>hth.com</strong> 指向一个对外呈现特定主题信息的站点。本页作为围绕该关键词的知识索引，汇总与其相关的结构说明、功能特点以及常见场景，帮助访问者快速建立认知框架。以下内容均基于公开信息与通用模式梳理，不构成具体承诺或保证。</p>
+        </div>
+
+        <!-- 网格卡片：目录感布局，两个并列区域 -->
+        <div class="grid-2col">
+            <!-- 卡片1：特点 / 内容侧重 -->
+            <div class="card-outline">
+                <h3>内容侧重</h3>
+                <p>从 <a href="https://zh-webs-hth.com" class="inline-link">hth.com</a> 所承载的信息类型来看，主要聚焦于结构化主题的展示与分类引导。页面通常采用分层目录入口，便于按兴趣或需求逐级查阅。知识组织上偏向实用导向，强调快速定位与信息密度。</p>
+                <ul>
+                    <li>模块化入口与主题分组</li>
+                    <li>关注信息获取效率</li>
+                    <li>减少冗余，突出核心条目</li>
+                </ul>
+            </div>
+            <!-- 卡片2：典型应用场景 -->
+            <div class="card-outline">
+                <h3>典型场景</h3>
+                <p>当用户需要围绕特定主题获取系统性介绍、对比或背景资料时，类似 <a href="https://zh-webs-hth.com" class="inline-link">hth.com</a> 这样的页面可作为起点。常被用于快速浏览主题全貌、查阅关键条目以及作为进一步搜索的参考锚点。</p>
+                <ul>
+                    <li>主题背景与前置知识梳理</li>
+                    <li>关键词相关的常见问题索引</li>
+                    <li>信息集合与横向比较</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 提示区 -->
+        <div class="tip-block">
+            <div>
+                <p><strong>使用提示：</strong> 本知识库入口并非原始站点，而是对 <a href="https://zh-webs-hth.com">hth.com</a> 所涉内容体系的二次整理与结构说明。如需获取最新、最完整的官方信息，建议直接访问原始域名页面。此处提供的描述仅为基于常见模式的参考概括。</p>
+            </div>
+        </div>
+
+        <!-- 相关信息区 + FAQ摘要 -->
+        <div class="related-box">
+            <h4>相关信息</h4>
+            <ul class="tag-list">
+                <li>主题分类</li>
+                <li>目录导航</li>
+                <li>知识密度</li>
+                <li>结构化入口</li>
+                <li>内容索引</li>
+            </ul>
+        </div>
+
+        <div class="faq-preview">
+            <details>
+                <summary>hth.com 主要面向哪类访问者？</summary>
+                <div class="answer">
+                    通常面向希望快速了解某一主题整体框架的用户，包括初步探索者、信息整理需求者，以及需要结构化参考的阅读者。页面设计上倾向于信息层级清晰，减少无关干扰。
+                </div>
+            </details>
+            <details>
+                <summary>这个知识库页面与原始网站的关系是？</summary>
+                <div class="answer">
+                    本页是以 <a href="https://zh-webs-hth.com">hth.com</a> 为关键词的主题知识入口说明，旨在从外部视角梳理其内容组织方式与可能的信息范畴，并非直接复制或替代原始网站。原始网站拥有最终的内容定义权。
+                </div>
+            </details>
+            <details>
+                <summary>如何更高效地利用该主题入口？</summary>
+                <div class="answer">
+                    建议先通过目录或摘要区大致浏览主题分支，再根据个人兴趣点深入具体条目。若需要对比或验证信息，可同时参考其他可靠来源。本知识库仅作为结构化引导。
+                </div>
+            </details>
+        </div>
+
+        <hr>
+        <p style="font-size:0.9rem; color:#475569; text-align:center; max-width:700px; margin:0 auto;">
+            本介绍页以知识库入口形式组织，内容围绕 <a href="https://zh-webs-hth.com">hth.com</a> 所关联的主题展开，提供说明区、提示及FAQ摘要，供参考使用。
+        </p>
+    </main>
+
+    <footer>
+        <span>知识库入口 · 主题索引</span>
+    </footer>
+
+</body>
+</html>
