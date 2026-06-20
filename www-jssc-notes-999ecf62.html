@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>极速赛车 · 稳定体验与场景说明</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: #f5f9fc;
+            color: #1a2b3c;
+            line-height: 1.6;
+            padding: 0 1rem;
+        }
+
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 顶部导航 */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0.6rem 0.8rem;
+            border-bottom: 1px solid #cfe3ed;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .site-title {
+            font-weight: 600;
+            font-size: 1.4rem;
+            letter-spacing: 0.02em;
+            color: #147b7a;
+            background: #def0f0;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            display: inline-block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.8rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #1a4b5a;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.3rem 0;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: #0e9f9b;
+            color: #0b6e6b;
+        }
+
+        /* Hero 介绍区 */
+        .hero {
+            text-align: center;
+            padding: 3rem 0.8rem 2.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #134d4b;
+            margin-bottom: 0.6rem;
+        }
+
+        .hero .highlight {
+            background: linear-gradient(145deg, #c4e6e5, #a1d6d4);
+            padding: 0.1rem 0.6rem;
+            border-radius: 20px;
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin: 1rem auto 1.6rem;
+            font-size: 1.08rem;
+            color: #1f4752;
+        }
+
+        .hero .lead-link {
+            background: #137e7c;
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+
+        .hero .lead-link:hover {
+            background: #0e6563;
+        }
+
+        /* 网格卡片区（三个场景模块） */
+        .grid-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.8rem;
+            padding: 1.8rem 0 2.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem 1.6rem 1.8rem;
+            box-shadow: 0 6px 18px rgba(0, 40, 50, 0.06);
+            border: 1px solid #d5eaf0;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(0, 65, 75, 0.08);
+        }
+
+        .card .icon {
+            font-size: 2rem;
+            display: inline-block;
+            background: #dff3f2;
+            width: 48px;
+            height: 48px;
+            line-height: 48px;
+            text-align: center;
+            border-radius: 18px;
+            margin-bottom: 1rem;
+            color: #0b6b68;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: #124e4c;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #2a4956;
+        }
+
+        .card a.inline-link {
+            color: #11736f;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            font-weight: 500;
+        }
+
+        .card a.inline-link:hover {
+            color: #0b5653;
+        }
+
+        /* 常见说明区 (FAQ 摘要) */
+        .faq-summary {
+            background: #e7f4f5;
+            border-radius: 32px;
+            padding: 2.2rem 2rem 2.5rem;
+            margin: 1rem 0 2.8rem;
+            border: 1px solid #cbe1e3;
+        }
+
+        .faq-summary h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #124846;
+            margin-bottom: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #c1dbdd;
+            padding: 1.1rem 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-item strong {
+            display: block;
+            font-weight: 600;
+            color: #115551;
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+        }
+
+        .faq-item p {
+            margin: 0.2rem 0 0;
+            color: #1e404b;
+            font-size: 0.95rem;
+        }
+
+        .faq-item a {
+            color: #11736f;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        /* 底部 */
+        .footer-note {
+            text-align: center;
+            padding: 1.8rem 0.6rem 2.5rem;
+            border-top: 1px solid #d0e4e8;
+            color: #3a6069;
+            font-size: 0.85rem;
+        }
+
+        .footer-note a {
+            color: #0d6b68;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
+            .top-nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                margin-top: 0.2rem;
+            }
+
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+
+            .grid-section {
+                gap: 1.2rem;
+            }
+
+            .faq-summary {
+                padding: 1.6rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+        <span class="site-title">⚡ 极速·说明</span>
+        <div class="nav-links">
+            <a href="#start">主页</a>
+            <a href="#scenes">场景</a>
+            <a href="#faq">常见说明</a>
+        </div>
+    </nav>
+
+    <!-- Hero 介绍 -->
+    <section class="hero" id="start">
+        <h1><span class="highlight">极速赛车</span> 稳定访问与使用参考</h1>
+        <p>
+            这是一份围绕“<a href="https://www-jssc.com" style="color: #0b6e6b; text-decoration: underline; text-underline-offset: 2px; font-weight: 500;">极速赛车</a>”整理的轻量导航页。
+            我们更关注入口的清晰性和信息的结构化，帮助你快速了解基本功能、常见场景以及需要注意的细节。
+            页面内容保持平实，不渲染夸张说法，仅作为日常使用的参考说明。
+        </p>
+        <a href="https://www-jssc.com" class="lead-link">极速赛车</a>
+    </section>
+
+    <!-- 三个场景模块（卡片网格） -->
+    <section id="scenes" class="grid-section">
+        <div class="card">
+            <div class="icon">🚦</div>
+            <h3>日常启动与预览</h3>
+            <p>
+                通过<a href="https://www-jssc.com" class="inline-link">极速赛车</a>的稳定入口，你可以快速查看当前界面与基础功能模块。
+                适合日常打开确认状态，无需复杂跳转。
+            </p>
+        </div>
+        <div class="card">
+            <div class="icon">📋</div>
+            <h3>信息查阅与对照</h3>
+            <p>
+                在需要核对规则、数据或说明时，将<a href="https://www-jssc.com" class="inline-link">极速赛车</a>作为固定参考页，
+                配合浏览器书签使用，能有效减少重复搜索时间。
+            </p>
+        </div>
+        <div class="card">
+            <div class="icon">🔄</div>
+            <h3>轻量操作与反馈</h3>
+            <p>
+                对于常见操作，直接在<a href="https://www-jssc.com" class="inline-link">极速赛车</a>页面内完成，
+                无需额外下载或安装，适合快速响应和临时使用。
+            </p>
+        </div>
+    </section>
+
+    <!-- 常见说明区 (FAQ 摘要) -->
+    <section class="faq-summary" id="faq">
+        <h2>📌 常见说明</h2>
+
+        <div class="faq-item">
+            <strong>访问方式是否固定？</strong>
+            <p>
+                建议将 <a href="https://www-jssc.com">极速赛车</a> 添加至浏览器收藏夹。
+                由于网络环境差异，有时可能需要刷新或更换连接方式，但页面本身保持稳定。
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <strong>页面是否适配手机？</strong>
+            <p>
+                当前介绍页已做移动端适配，且目标站点同样支持手机浏览器。
+                使用<a href="https://www-jssc.com">极速赛车</a>时，横竖屏均可正常显示主要信息。
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <strong>有哪些基础功能模块？</strong>
+            <p>
+                主要包括：信息展示、快速导航、常用工具入口。所有模块均以清晰直观为原则，
+                没有隐藏或诱导选项。具体内容以实际页面为准。
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <strong>遇到显示异常怎么办？</strong>
+            <p>
+                可先尝试清除缓存或使用浏览器无痕模式重新访问 <a href="https://www-jssc.com">极速赛车</a>。
+                如果问题持续，可检查网络设置或更换访问时段。
+            </p>
+        </div>
+    </section>
+
+    <!-- 底部 -->
+    <footer class="footer-note">
+        <p>本页为静态说明页 · 内容仅作参考 · 实际功能以 <a href="https://www-jssc.com">极速赛车</a> 为准</p>
+        <p style="margin-top: 0.5rem; opacity: 0.7;">更新于最近 · 保持简洁</p>
+    </footer>
+</div>
+</body>
+</html>
