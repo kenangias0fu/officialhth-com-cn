@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hth 平台 · 知识库入口</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f2f4f6;
+            color: #1e2a3a;
+            line-height: 1.7;
+            padding: 2rem 1.5rem;
+        }
+
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        /* Hero 区：目录感标题 */
+        .hero {
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03), 0 0 0 1px rgba(0, 0, 0, 0.02);
+            padding: 2.8rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #0b1a2e;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero h1 span {
+            color: #2b6b9c;
+        }
+
+        .hero .sub {
+            font-size: 1rem;
+            color: #4d607a;
+            max-width: 560px;
+            margin: 0.5rem auto 0;
+            border-top: 1px solid #e6e9ed;
+            padding-top: 1.2rem;
+        }
+
+        /* 卡片通用样式 */
+        .card {
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02), 0 0 0 1px rgba(0, 0, 0, 0.02);
+            padding: 2rem 2rem;
+            transition: box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04), 0 0 0 1px #dbe0e5;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            font-weight: 550;
+            margin-bottom: 1rem;
+            color: #14283e;
+            border-left: 4px solid #3a7bb5;
+            padding-left: 0.9rem;
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 550;
+            margin: 1.3rem 0 0.5rem 0;
+            color: #1f3853;
+        }
+
+        .card p, .card li {
+            font-size: 0.98rem;
+            color: #2a3b51;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .card li {
+            padding: 0.3rem 0 0.3rem 1.6rem;
+            position: relative;
+        }
+
+        .card li::before {
+            content: "▹";
+            position: absolute;
+            left: 0.2rem;
+            color: #3a7bb5;
+        }
+
+        /* 网格布局：说明 + 提示双栏 */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+        }
+
+        @media (max-width: 680px) {
+            .grid-2col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 相关信息区 —— 目录风格卡片 */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 680px) {
+            .info-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 460px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .info-item {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 1rem 1.2rem;
+            border: 1px solid #e9edf2;
+            transition: background 0.15s;
+            font-size: 0.95rem;
+        }
+
+        .info-item strong {
+            display: block;
+            font-weight: 600;
+            color: #10273f;
+            margin-bottom: 0.3rem;
+        }
+
+        .info-item p {
+            margin: 0;
+            color: #3a4f68;
+        }
+
+        /* FAQ 摘要区 */
+        .faq-item {
+            border-bottom: 1px solid #edf0f4;
+            padding: 1rem 0 0.9rem 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-q {
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            color: #163352;
+        }
+
+        .faq-a {
+            color: #3a4e67;
+            font-size: 0.96rem;
+        }
+
+        .faq-a a {
+            color: #2b6b9c;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .faq-a a:hover {
+            text-decoration: underline;
+        }
+
+        /* 链接样式 */
+        .text-link {
+            color: #2b6b9c;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.15s;
+        }
+
+        .text-link:hover {
+            color: #1b4b73;
+            text-decoration: underline;
+        }
+
+        /* 底部 */
+        .footer-note {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #5e708a;
+            border-top: 1px solid #e1e6ec;
+            padding-top: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .footer-note a {
+            color: #3b6a96;
+            text-decoration: none;
+        }
+
+        .footer-note a:hover {
+            text-decoration: underline;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e3e8ee;
+            margin: 0.6rem 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- Hero 区：标题 + 目录说明 -->
+    <div class="hero">
+        <h1>📖 <span>hth</span> 平台 · 知识库入口</h1>
+        <div class="sub">
+            稳定入口 · 结构说明 · 信息索引
+        </div>
+    </div>
+
+    <!-- 介绍区：平台定位与稳定入口说明 -->
+    <div class="card">
+        <h2>平台定位与入口说明</h2>
+        <p>
+            <a href="https://m-index-hth.com" class="text-link">hth</a> 是一个面向特定领域用户的服务站点，旨在提供持续可用的功能入口与信息集成。作为知识库型索引页，本页聚合了关于该平台的基本介绍、使用场景提示、常见疑问摘要及相关参考信息，帮助新用户快速了解其结构，也为老用户提供一个稳定的认知锚点。
+        </p>
+        <p style="margin-top: 0.8rem;">
+            无论是初次接触还是日常使用，理解平台的核心模块和访问逻辑都能提升效率。下文将从功能说明、典型场景、信息索引与常见问题四个角度展开，内容保持客观、克制。
+        </p>
+    </div>
+
+    <!-- 双栏布局：说明区 + 提示区 -->
+    <div class="grid-2col">
+        <!-- 说明区 -->
+        <div class="card">
+            <h2>功能说明区</h2>
+            <p>平台围绕几个主要模块构建，各模块之间逻辑独立、入口清晰。以下为关键组成部分：</p>
+            <ul>
+                <li><strong>控制面板</strong> — 用户状态总览与常用操作入口，信息密度适中。</li>
+                <li><strong>内容索引</strong> — 按类型分类的文档与数据列表，支持快速筛选。</li>
+                <li><strong>辅助工具</strong> — 集成若干轻量级功能，便于日常查询与操作。</li>
+                <li><strong>通知与动态</strong> — 展示平台更新、维护预告及重要提示。</li>
+            </ul>
+            <p style="margin-top: 0.8rem;">
+                各区域均提供明确的导航反馈，页面结构偏向扁平化，减少深层跳转。建议用户优先熟悉面板布局，再根据需求深入对应模块。
+            </p>
+        </div>
+
+        <!-- 提示区 -->
+        <div class="card">
+            <h2>使用提示</h2>
+            <p>基于常见使用习惯，整理以下提示供参考：</p>
+            <ul>
+                <li>首次使用可先浏览各模块标题与摘要，建立整体认知。</li>
+                <li>平台入口始终保持不变，建议将 <a href="https://m-index-hth.com" class="text-link">hth</a> 加入浏览器书签以便随时返回。</li>
+                <li>部分功能依赖浏览器本地存储，清理缓存后可能需要重新配置偏好。</li>
+                <li>如遇页面加载异常，可尝试刷新或稍后重试，通常为临时网络波动。</li>
+            </ul>
+            <p style="margin-top: 0.8rem;">
+                以上提示基于一般情况，具体表现可能因设备或网络环境而异。
+            </p>
+        </div>
+    </div>
+
+    <!-- 相关信息区：卡片式目录 -->
+    <div class="card">
+        <h2>相关信息</h2>
+        <p style="margin-bottom: 0.8rem;">以下为围绕平台的一些参考信息，按主题归类：</p>
+        <div class="info-grid">
+            <div class="info-item">
+                <strong>协议与安全</strong>
+                <p>HTTPS 传输，数据加密；建议定期更新密码。</p>
+            </div>
+            <div class="info-item">
+                <strong>兼容性</strong>
+                <p>主流现代浏览器均可正常访问，移动端适配良好。</p>
+            </div>
+            <div class="info-item">
+                <strong>更新频率</strong>
+                <p>功能迭代通常按月发布，维护前会通过动态区通知。</p>
+            </div>
+            <div class="info-item">
+                <strong>反馈渠道</strong>
+                <p>平台内嵌反馈表单，也可通过站内信联系支持团队。</p>
+            </div>
+            <div class="info-item">
+                <strong>数据说明</strong>
+                <p>用户数据仅用于功能运行，不向第三方共享。</p>
+            </div>
+            <div class="info-item">
+                <strong>入口稳定性</strong>
+                <p>主域名长期有效，如遇 DNS 变更会提前公告。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ 摘要区 -->
+    <div class="card">
+        <h2>常见疑问摘要</h2>
+        <div class="faq-item">
+            <div class="faq-q">Q1: 如何确认当前使用的是不是最新入口？</div>
+            <div class="faq-a">建议直接访问 <a href="https://m-index-hth.com">hth</a> 并对比页面顶部版本标识，平台会在更新后于页面中显示版本号或日期戳。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">Q2: 页面部分区域加载缓慢怎么办？</div>
+            <div class="faq-a">可以先检查网络连接，或尝试禁用浏览器扩展后刷新。若持续异常，可稍后再试。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">Q3: 是否支持多语言界面？</div>
+            <div class="faq-a">目前以中文界面为主，部分功能模块提供英文辅助标注。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">Q4: 忘记某个功能的位置，如何快速定位？</div>
+            <div class="faq-a">可使用页面内置搜索功能（如提供），或浏览控制面板中的模块分类索引。</div>
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.95rem; color: #3e5772;">
+            💡 更多问题可直接通过站内支持渠道咨询，通常在工作日 24 小时内回复。
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <div class="footer-note">
+        <span>知识库入口 · </span>
+        <a href="https://m-index-hth.com">hth</a>
+        <span>  · 内容仅供信息参考</span>
+    </div>
+</div>
+</body>
+</html>
